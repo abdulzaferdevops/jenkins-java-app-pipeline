@@ -76,6 +76,19 @@ mvn clean verify                      # tests + coverage report in target/site/j
 java -jar target/fx-rates-service.jar # http://127.0.0.1:5003/health
 ```
 
+## Results
+
+![Jenkins build history](docs/pipeline.png)
+
+| Build | Change | Caught by | Outcome |
+|:--|:--|:--|:--|
+| #2 | Rounding switched from HALF_EVEN to UP (overcharges by fractions) | Unit and API tests: `expected 260.0780 but was 260.0781` | Nothing deployed |
+| #3 | API tests deleted to "get a green build" | JaCoCo coverage gate: **40 % < 70 %** | Nothing deployed |
+| #4 | Release file read from the wrong name; service up, but reporting `"release":"dev"` | Post-deploy health check (verifies the **release**, not just `"ok"`) | **Rolled back automatically** to #1 |
+| #5 | Revert | — | Deployed and healthy |
+
+![Rounding failures recorded in Jenkins](docs/tests.png)
+
 ## Licence
 
 MIT
