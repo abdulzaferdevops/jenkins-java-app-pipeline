@@ -150,7 +150,7 @@ public final class App {
     public static void main(String[] args) throws IOException {
         String bind = env("APP_BIND", "127.0.0.1");
         int port = Integer.parseInt(env("APP_PORT", "5003"));
-        ReleaseInfo release = ReleaseInfo.read(Path.of(env("APP_RELEASE_FILE", "RELEASE")));
+        ReleaseInfo release = ReleaseInfo.read(Path.of(env("APP_RELEASE_FILE", "RELEASE.txt")));
         App app = new App(bind, port, loadBundledRates(), release);
         Runtime.getRuntime().addShutdownHook(new Thread(app::stop));
         app.start();
