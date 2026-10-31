@@ -71,7 +71,7 @@ public final class RateTable {
         return amount
                 .divide(fromRate, 12, RoundingMode.HALF_EVEN)
                 .multiply(toRate)
-                .setScale(RESULT_SCALE, RoundingMode.HALF_EVEN);
+                .setScale(RESULT_SCALE, RoundingMode.UP);
     }
 
     private BigDecimal rateFor(String code) {
